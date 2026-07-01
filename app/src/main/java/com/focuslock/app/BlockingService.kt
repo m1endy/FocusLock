@@ -8,13 +8,19 @@ import android.content.Intent
 import android.os.Build
 import android.view.accessibility.AccessibilityEvent
 import androidx.core.app.NotificationCompat
-import com.focuslock.app.data.BLOCKED_APPS
-import com.focuslock.app.data.END_TIME
+import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import com.focuslock.app.data.dataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
 class BlockingService : AccessibilityService() {
+
+    companion object {
+        val BLOCKED_APPS = stringPreferencesKey("blocked_apps")
+        val END_TIME = longPreferencesKey("end_time")
+    }
+
     override fun onServiceConnected() {
         super.onServiceConnected()
         val info = AccessibilityServiceInfo().apply {
