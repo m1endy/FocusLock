@@ -173,7 +173,8 @@ fun startBlocking(vm: FocusViewModel, ctx: Context, dur: Int) {
 
 fun isAccessibilityEnabled(ctx: Context): Boolean {
     val am = ctx.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
-    return am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC).any {
-        it.resolveInfo.serviceInfo.packageName == ctx.packageName
+    val enabledServices = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
+    return enabledServices.any { service ->
+        service.resolveInfo?.serviceInfo?.packageName == ctx.packageName
     }
 }
