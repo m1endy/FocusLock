@@ -21,36 +21,6 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Create project structure
-        run: |
-          mkdir -p app/src/main/java/com/focuslock/app/ui
-          mkdir -p app/src/main/res/xml
-          mkdir -p app/src/main/res/values
-          mkdir -p app/src/main/res/drawable
-          
-          mv AndroidManifest.xml app/src/main/
-          mv build.gradle.kts app/
-          mv accessibility_service_config.xml app/src/main/res/xml/
-          mv AppData.kt app/src/main/java/com/focuslock/app/
-          mv Theme.kt app/src/main/java/com/focuslock/app/ui/
-          mv MainActivity.kt app/src/main/java/com/focuslock/app/
-          mv BlockingService.kt app/src/main/java/com/focuslock/app/
-          mv OverlayService.kt app/src/main/java/com/focuslock/app/
-
-      - name: Create root build.gradle.kts
-        run: |
-          echo 'plugins { id("com.android.application") version "8.2.0" apply false }' > build.gradle.kts
-
-      - name: Create settings.gradle.kts
-        run: |
-          echo 'rootProject.name = "FocusLock"' > settings.gradle.kts
-          echo 'include(":app")' >> settings.gradle.kts
-
-      - name: Create gradle.properties
-        run: |
-          echo 'android.useAndroidX=true' > gradle.properties
-          echo 'org.gradle.jvmargs=-Xmx2048m' >> gradle.properties
-
       - name: Build APK
         run: |
           cd app
