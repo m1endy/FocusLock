@@ -22,17 +22,15 @@ class BlockingService : AccessibilityService() {
     }
 
     override fun onServiceConnected() {
-        super.onServiceConnected()
-        val info = AccessibilityServiceInfo().apply {
-            eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED
-            feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC
-            flags = AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS or AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS
-            notificationTimeout = 100
-        }
-        serviceInfo = info
-        startForeground(1, createNotification())
+    super.onServiceConnected()
+    val info = AccessibilityServiceInfo().apply {
+        eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED
+        feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC
+        notificationTimeout = 100
     }
-
+    serviceInfo = info
+    startForeground(1, createNotification())
+}
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (event?.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return
         val pkg = event.packageName?.toString() ?: return
